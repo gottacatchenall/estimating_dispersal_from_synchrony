@@ -9,25 +9,27 @@ module DPE
     using ProgressMeter
     using LinearAlgebra
     
+    
+    # -----------------------------------------------------------
     # Submodules
+    # -----------------------------------------------------------
 
-    ## Individual-Based Model for generating abundance timeseries
-    ## for testing DPE
-    module IBM
-    end
+        # -----------------------------------------------------------
+        # Dispersal
+        # -----------------------------------------------------------
+        include(joinpath(".", "Dispersal/Dispersal.jl"))
+        using .Dispersal 
+        export DispersalPotential, ExpKernel, GaussKernel
 
-
-    abstract type DispersalKernel end     
-    abstract type ParameterBundle end
-    abstract type Parameter end
-
-    # Other source files
-
-    include("DispersalPotential.jl")
-    include("Metapopulation.jl")
-    include("Parameters.jl")
-    include("SummaryStats.jl")
-    include("TreatmentFactory.jl")
-
-
+        # -----------------------------------------------------------
+        # Metapopulation
+        # -----------------------------------------------------------
+        include(joinpath(".", "Metapopulation/Metapopulation.jl"))
+        using .Metapopulations
+        export Metapopulation, Population
+        export  get_random_metapopulation, 
+                get_lattice_metapop,
+                construct_metapopulation_from_coordinates,
+                get_distance_between_pops,
+                get_coordinates
 end
