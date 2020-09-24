@@ -10,9 +10,9 @@ function stochastic_logistic_single_population(abundance::Float64, sigma::Float6
     end
 end
 
-struct StochasticLogisticWDiffusion <: Dynamics
+struct StochasticLogisticWDiffusion <: DynamicsModel
     StochasticLogisticWDiffusion() =
-    function(treatment_instance::TreatmentInstance)
+    function(treatment_instance::DynamicsInstance)
         simulation_parameters = treatment_instance.simulation_parameters
         parameter_values::StochasticLogisticParameterValues = treatment_instance.parameter_values
         num_populations = treatment_instance.metapopulation.num_populations

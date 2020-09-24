@@ -1,24 +1,28 @@
-module Parameters
+module Treatments
     # -------------------------------------------------------------
     #   Libraries
     # -------------------------------------------------------------
-    using ..DPE: Metapopulations, Dispersal
-    using Distributions
+    using ..DPE
+    using DataFrames
+    using ProgressMeter
+
 
 
     # -----------------------------------------------------------
     # Include methods
     # -----------------------------------------------------------
     include(joinpath(".", "types.jl"))
+    include(joinpath(".", "create_treatments.jl"))
 
     # -----------------------------------------------------------
     # export
     # -----------------------------------------------------------
 
     # types
-    export  Parameter,
-            ParameterBundle,
-            ParameterValues
+    export  TreatmentInstance,
+            Treatment,
+            TreatmentSet
+
 
 
 end
