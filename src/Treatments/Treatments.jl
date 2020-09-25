@@ -13,6 +13,8 @@ module Treatments
     # -----------------------------------------------------------
     include(joinpath(".", "types.jl"))
     include(joinpath(".", "create_treatments.jl"))
+    include(joinpath(".", "run_treatments.jl"))
+    include(joinpath(".", "create_metadata_dataframe.jl"))
 
     # -----------------------------------------------------------
     # export

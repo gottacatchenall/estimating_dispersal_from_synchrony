@@ -15,13 +15,6 @@ module DPE
     # -----------------------------------------------------------
 
         # -----------------------------------------------------------
-        # Dispersal
-        # -----------------------------------------------------------
-        include(joinpath(".", "Dispersal/Dispersal.jl"))
-        using .Dispersal
-        export DispersalPotential, ExpKernel, GaussKernel
-
-        # -----------------------------------------------------------
         # Metapopulation
         # -----------------------------------------------------------
         include(joinpath(".", "Metapopulation/Metapopulation.jl"))
@@ -31,7 +24,16 @@ module DPE
                 get_lattice_metapop,
                 construct_metapopulation_from_coordinates,
                 get_distance_between_pops,
-                get_coordinates
+                get_coordinates,
+                get_number_populations
+
+        # -----------------------------------------------------------
+        # Dispersal
+        # -----------------------------------------------------------
+        include(joinpath(".", "Dispersal/Dispersal.jl"))
+        using .Dispersal
+        export DispersalPotential, ExpKernel, GaussKernel
+        export get_dispersal_potential
 
         # -----------------------------------------------------------
         # Parameters
@@ -59,5 +61,22 @@ module DPE
         using .Treatments
         export  Treatment,
                 TreatmentSet
+
+        # -----------------------------------------------------------
+        # IBM
+        # -----------------------------------------------------------
+        include(joinpath(".", "IBM/IBM.jl"))
+        using .IBM
+        export  IBMInstance,
+                IBMParameterValues
+
+        export run_ibm
+
+        
+
+        # -----------------------------------------------------------
+        # ABCSampler
+        # -----------------------------------------------------------
+        include(joinpath(".", "ABCSampler/ABCSampler.jl"))
 
 end

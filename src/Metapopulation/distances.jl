@@ -12,4 +12,6 @@ function get_coordinates(mp::Metapopulation)
     return [mp.populations[p].coordinate for p = 1:mp.num_populations]
 end
 
-
+function get_number_populations(mp::Metapopulation)
+    return length(mp.populations)
+end

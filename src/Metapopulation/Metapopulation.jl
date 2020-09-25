@@ -40,5 +40,7 @@ module Metapopulations
             get_lattice_metapop,
             construct_metapopulation_from_coordinates,
             get_distance_between_pops,
-            get_coordinates
+            get_coordinates,
+            get_number_populations
+
 end
