@@ -33,7 +33,7 @@ module DPE
         include(joinpath(".", "Dispersal/Dispersal.jl"))
         using .Dispersal
         export DispersalPotential, ExpKernel, GaussKernel
-        export get_dispersal_potential
+        export get_dispersal_potential, draw_from_dispersal_potential_row
 
         # -----------------------------------------------------------
         # Parameters
@@ -61,6 +61,15 @@ module DPE
         using .Treatments
         export  Treatment,
                 TreatmentSet
+
+        # -----------------------------------------------------------
+        # SumamryStats
+        # -----------------------------------------------------------
+        include(joinpath(".", "SummaryStats/SummaryStats.jl"))
+        using .SummaryStats
+        export SummaryStat, PCC
+
+
 
         # -----------------------------------------------------------
         # IBM

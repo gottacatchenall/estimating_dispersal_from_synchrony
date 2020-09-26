@@ -1,6 +1,6 @@
 module IBM
     using ..DPE
-  
+    using Distributions 
 
     include(joinpath(".", "ricker_models.jl"))
     include(joinpath(".", "types.jl"))

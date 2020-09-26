@@ -15,14 +15,18 @@ end
 
 IBMParameterValues(; 
                    mortality_probability::Number = 0.1,
-                   predation_strength::Number = 3,
+                   predation_strength::Number = 0.03,
                    migration_probability::Number = 0.01,
                    base_offspring_per_indiv::Number = 3,
-                   num_timesteps::Number = 100,
+                   num_timesteps::Number = 1000,
                    log_frequency::Number = 10
                   ) = IBMParameterValues(mortality_probability, predation_strength, migration_probability, base_offspring_per_indiv, num_timesteps, log_frequency)
 
-
+"""
+    IBMInstance
+    -----------------------------------------------------------
+    An instance of the IBM 
+"""
 struct IBMInstance 
     metapopulation::Metapopulation
     parameters::IBMParameterValues
@@ -40,4 +44,4 @@ IBMInstance(;
                             parameters, 
                             get_dispersal_potential(metapopulation), 
                             get_new_abundance, 
-                            state)
+                            rand(DiscreteUniform(10, 100), get_number_populations(metapopulation)))

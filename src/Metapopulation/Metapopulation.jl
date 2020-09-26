@@ -1,6 +1,6 @@
 
 module Metapopulations
-    using Distributions
+    using Distributions, Distances
     using ..DPE
 
     # -----------------------------------------------------------
@@ -42,5 +42,4 @@ module Metapopulations
             get_distance_between_pops,
             get_coordinates,
             get_number_populations
-
 end

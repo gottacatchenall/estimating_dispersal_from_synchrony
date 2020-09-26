@@ -1,5 +1,6 @@
 module Dispersal
     using ..DPE
+    using Distributions
     # -----------------------------------------------------------
     # Types
     # -----------------------------------------------------------
@@ -41,5 +42,5 @@ module Dispersal
             GaussKernel, 
             ExpKernel
 
-    export get_dispersal_potential
+    export get_dispersal_potential, draw_from_dispersal_potential_row
 end
