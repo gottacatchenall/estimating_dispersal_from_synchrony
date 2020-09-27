@@ -1,3 +1,4 @@
+
 function stochastic_logistic_single_population(abundance::Float64, sigma::Float64, lambda::Float64, dt::Float64, dW::Float64, carrying_capacity::Float64)::Float64
     if (abundance > 0)
         delta_abundance_deterministic::Float64 =  abundance*lambda*(1.0-(abundance/carrying_capacity))
@@ -10,42 +11,39 @@ function stochastic_logistic_single_population(abundance::Float64, sigma::Float6
     end
 end
 
-struct StochasticLogisticWDiffusion <: DynamicsModel
-    StochasticLogisticWDiffusion() =
+StochasticLogisticWDiffusion() =
     function(treatment_instance::DynamicsInstance)
-        simulation_parameters = treatment_instance.simulation_parameters
-        parameter_values::StochasticLogisticParameterValues = treatment_instance.parameter_values
-        num_populations = treatment_instance.metapopulation.num_populations
+    simulation_parameters = treatment_instance.simulation_parameters
+    parameter_values::StochasticLogisticParameterValues = treatment_instance.parameter_values
+    num_populations = treatment_instance.metapopulation.num_populations
 
-        sigma::Vector{Float64} = parameter_values.sigma
-        lambda::Vector{Float64} = parameter_values.lambda
-        carrying_capacity::Vector{Float64} = parameter_values.carrying_capacity
+    sigma::Vector{Float64} = parameter_values.sigma
+    lambda::Vector{Float64} = parameter_values.lambda
+    carrying_capacity::Vector{Float64} = parameter_values.carrying_capacity
 
-        dt::Float64 = simulation_parameters.timestep_width
-        dW::Float64 = simulation_parameters.timestep_width
+    dt::Float64 = simulation_parameters.timestep_width
+    dW::Float64 = simulation_parameters.timestep_width
 
-        current_state::Array{Float64} = treatment_instance.state
-        new_state::Array{Float64} = zeros(num_populations)
+    current_state::Array{Float64} = treatment_instance.state
+    new_state::Array{Float64} = zeros(num_populations)
 
-        # stochastic logistic model locally
-        for p = 1:num_populations
-            new_state[p] = stochastic_logistic_single_population(current_state[p], sigma[p], lambda[p], dt, dW, carrying_capacity[p])
-        end
-
-        # diffusion between populations
-        dispersal_potential = treatment_instance.metapopulation.dispersal_potential
-        diffusion_matrix = get_dispersal_matrix(dispersal_potential, parameter_values.migration_rate)
-        new_state = diffusion_matrix * new_state
-
-        treatment_instance.state = new_state
+    # stochastic logistic model locally
+    for p = 1:num_populations
+        new_state[p] = stochastic_logistic_single_population(current_state[p], sigma[p], lambda[p], dt, dW, carrying_capacity[p])
     end
+
+    # diffusion between populations
+    dispersal_potential = treatment_instance.metapopulation.dispersal_potential
+    diffusion_matrix = get_dispersal_matrix(dispersal_potential, parameter_values.migration_rate)
+    new_state = diffusion_matrix * new_state
+
+    treatment_instance.state = new_state
 end
 
 
 
 function get_dispersal_matrix(dispersal_potential::DispersalPotential, migration_rate::Vector{Float64})
     n_pops = length(dispersal_potential.matrix[1,:])
-
     migration_max = 1.0 - (1.0/n_pops)
 
     dispersal_matrix = zeros(n_pops, n_pops)
