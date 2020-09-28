@@ -1,3 +1,6 @@
 [submodule "writing/estimating_dispersal_structure_using_synchrony"]
 	path = writing/estimating_dispersal_structure_using_synchrony
 	url = https://github.com/gottacatchenall/estimating_dispersal_structure_using_synchrony
+[submodule "MetapopulationDynamics.jl"]
+	path = MetapopulationDynamics.jl
+	url = https://github.com/gottacatchenall/MetapopulationDynamics.jl
