@@ -1,4 +1,4 @@
-function run_dispersal_stochastic(ibm)
+function run_dispersal_stochastic(ibm::RickerInstance)
         num_populations = get_number_populations(ibm.metapopulation)
         old_abundance_vector = ibm.state
         new_abundance_vector::Vector{Int64} = zeros(num_populations)
@@ -24,7 +24,7 @@ function run_dispersal_stochastic(ibm)
         end
 end
 
-function run_dispersal_diffusion(ibm)
+function run_dispersal_diffusion(ibm::RickerInstance)
     num_populations = get_number_populations(ibm.metapopulation)
     new_state::Array{Float64} = [ibm.state[p] for p in 1:num_populations]
 
@@ -51,7 +51,7 @@ function run_dispersal_diffusion(ibm)
 end
 
 
-function run_local_dynamics(ibm)
+function run_local_dynamics(ibm::RickerInstance)
     num_populations = get_number_populations(ibm.metapopulation)
     for p = 1:num_populations
         ibm.state[p] = ibm.get_new_abundance(ibm.state[p], 
@@ -62,13 +62,13 @@ function run_local_dynamics(ibm)
     end
 end
 
-function run_ibm_timestep(ibm::IBMInstance)
+function run_ibm_timestep(ibm::RickerInstance)
     run_local_dynamics(ibm)
     #run_dispersal_diffusion(ibm)
     run_dispersal_stochastic(ibm)
 end
 
-function run_ibm(ibm::IBMInstance)
+function run_ibm(ibm::RickerInstance)
     num_populations = get_number_populations(ibm.metapopulation)
     num_timesteps = ibm.parameters.num_timesteps 
     log_frequency = ibm.parameters.log_frequency

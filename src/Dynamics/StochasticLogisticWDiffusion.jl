@@ -1,4 +1,3 @@
-
 function stochastic_logistic_single_population(abundance::Float64, sigma::Float64, lambda::Float64, dt::Float64, dW::Float64, carrying_capacity::Float64)::Float64
     if (abundance > 0)
         delta_abundance_deterministic::Float64 =  abundance*lambda*(1.0-(abundance/carrying_capacity))
@@ -10,6 +9,18 @@ function stochastic_logistic_single_population(abundance::Float64, sigma::Float6
         return 0.0
     end
 end
+
+struct StochasticLogisticParameterValues <: ParameterValues
+    lambda::Float64
+    migration_probability::Float64
+    sigma::Float64
+end
+
+StochasticLogisticParameterValues(; lambda::Number = 2.0, 
+                                    migration_probability::Number=0.1, 
+                                    sigma::Number = 0.5
+                                   ) = StochasticLogisticParameterValues(lambda, migration_probability, sigma)
+
 
 StochasticLogisticWDiffusion() =
     function(treatment_instance::DynamicsInstance)
@@ -39,7 +50,6 @@ StochasticLogisticWDiffusion() =
 
     treatment_instance.state = new_state
 end
-
 
 
 function get_dispersal_matrix(dispersal_potential::DispersalPotential, migration_rate::Vector{Float64})
